@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='row justify-content-center'>
+<div class='col-md-6'>
+<div class='card shadow'>
+<div class='card-body p-4'>
+<h4 class='mb-4'>? Add New User</h4>
+<div id='reg_no_field' style='display:none'>
+<label>Registration Number</label>
+<input type='text' name='reg_no' id='reg_no' class='form-control mb-3' placeholder='e.g. 2022CSBS001'>
+</div>
+<form method='POST'>
+<label>Full Name</label>
+<input type='text' name='name' class='form-control mb-3' required>
+<label>Email</label>
+<input type='email' name='email' class='form-control mb-3' required>
+<label>Password</label>
+<input type='password' name='password' class='form-control mb-3' required>
+<label>Role</label>
+<select name='role' id='role' class='form-select mb-3' onchange='toggleRegNo()' required>
+<option value='student'>Student</option>
+<option value='faculty'>Faculty</option>
+</select>
+<label>Department</label>
+<select name='department' class='form-select mb-3' required>
+<option>CSBS</option>
+<option>CSE</option>
+<option>IT</option>
+<option>ECE</option>
+<option>EEE</option>
+<option>MECH</option>
+<option>CIVIL</option>
+</select>
+<div id='reg_field' style='display:block'>
+<label>Registration No (Students only)</label>
+<input type='text' name='reg_no' class='form-control mb-3' placeholder='e.g. 2022CSBS001'>
+</div>
+<button type='submit' class='btn btn-dark w-100'>Add User</button>
+</form>
+<a href='/admin/users' class='btn btn-outline-secondary w-100 mt-2'>Back to Users</a>
+</div></div></div></div>
+<script>
+function toggleRegNo() {
+var role = document.getElementById('role').value;
+document.getElementById('reg_field').style.display = role === 'student' ? 'block' : 'none';
+}
+toggleRegNo();
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class='mb-4'>Welcome, {{ session.name }}!</h3>
+<h5>Your Assigned Subjects</h5>
+<div class='table-responsive'>
+<table class='table table-bordered table-hover'>
+<thead class='table-dark'><tr><th>Subject</th><th>Code</th><th>Semester</th><th>Department</th><th>Action</th></tr></thead>
+<tbody>
+{% for s in subjects %}
+<tr>
+<td>{{ s.to_dict().name }}</td>
+<td>{{ s.to_dict().code }}</td>
+<td>Semester {{ s.to_dict().semester }}</td>
+<td>{{ s.to_dict().department }}</td>
+<td><a href='/faculty/upload/{{ s.id }}' class='btn btn-sm btn-dark'>Upload Marks</a></td>
+</tr>
+{% else %}
+<tr><td colspan='5' class='text-center text-muted'>No subjects assigned yet</td></tr>
+{% endfor %}
+</tbody></table></div>
+{% endblock %}

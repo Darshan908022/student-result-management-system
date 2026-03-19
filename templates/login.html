@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='row justify-content-center mt-5'>
+<div class='col-md-4'><div class='card shadow'><div class='card-body p-4'>
+<h4 class='text-center mb-4'>?? Login</h4>
+{% if error %}<div class='alert alert-danger'>{{ error }}</div>{% endif %}
+<input type='email' id='email' class='form-control mb-3' placeholder='Email'>
+<input type='password' id='password' class='form-control mb-3' placeholder='Password'>
+<button onclick='loginUser()' class='btn btn-dark w-100'>Login</button>
+</div></div></div></div>
+{% endblock %}
+{% block scripts %}
+<script type='module'>
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js';
+const firebaseConfig = {
+apiKey: 'AIzaSyDzdZ4q9i5xzCcrNpGeXCNf4J02o1e1Ttg',
+authDomain: 'student-result-system-a723e.firebaseapp.com',
+projectId: 'student-result-system-a723e',
+storageBucket: 'student-result-system-a723e.firebasestorage.app',
+appId: '1:821359853248:web:17bc299c3dd8d9b7dab725'
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+window.loginUser = async function() {
+const email = document.getElementById('email').value;
+const password = document.getElementById('password').value;
+try {
+const userCredential = await signInWithEmailAndPassword(auth, email, password);
+const idToken = await userCredential.user.getIdToken();
+const form = document.createElement('form');
+form.method = 'POST'; form.action = '/login';
+const input = document.createElement('input');
+input.type = 'hidden'; input.name = 'idToken'; input.value = idToken;
+form.appendChild(input); document.body.appendChild(form); form.submit();
+} catch(err) { alert('Login failed: ' + err.message); }
+}
+</script>
+{% endblock %}

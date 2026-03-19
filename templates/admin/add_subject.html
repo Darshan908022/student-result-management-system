@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='row justify-content-center'>
+<div class='col-md-6'>
+<div class='card shadow'>
+<div class='card-body p-4'>
+<h4 class='mb-4'>?? Add Subject</h4>
+<form method='POST'>
+<label>Subject Name</label>
+<input type='text' name='name' class='form-control mb-3' placeholder='e.g. Data Structures' required>
+<label>Subject Code</label>
+<input type='text' name='code' class='form-control mb-3' placeholder='e.g. CS301' required>
+<label>Department</label>
+<select name='department' class='form-select mb-3' required>
+<option>CSBS</option><option>CSE</option><option>IT</option><option>ECE</option>
+</select>
+<label>Semester</label>
+<select name='semester' class='form-select mb-3' required>
+<option>1</option><option>2</option><option>3</option><option>4</option>
+<option>5</option><option>6</option><option>7</option><option>8</option>
+</select>
+<label>Assign Faculty</label>
+<select name='faculty_uid' class='form-select mb-3' required>
+{% for f in faculty_list %}
+<option value='{{ f.id }}'>{{ f.to_dict().name }}</option>
+{% endfor %}
+</select>
+<button type='submit' class='btn btn-dark w-100'>Add Subject</button>
+</form>
+<a href='/admin/subjects' class='btn btn-outline-secondary w-100 mt-2'>Back to Subjects</a>
+</div></div></div></div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4 class='mb-4'>Upload Marks - {{ subject.name }} ({{ subject.code }})</h4>
+<form method='POST'>
+<div class='table-responsive'>
+<table class='table table-bordered'>
+<thead class='table-dark'><tr><th>Student Name</th><th>Reg No</th><th>Internal (50)</th><th>External (100)</th></tr></thead>
+<tbody>
+{% for s in students %}
+<tr>
+<td>{{ s.to_dict().name }}</td>
+<td>{{ s.to_dict().get('reg_no', '-') }}</td>
+<td><input type='number' name='internal_{{ s.id }}' class='form-control' min='0' max='50' required></td>
+<td><input type='number' name='external_{{ s.id }}' class='form-control' min='0' max='100' required></td>
+</tr>
+{% endfor %}
+</tbody></table></div>
+<button type='submit' class='btn btn-dark mt-3'>Submit Marks</button>
+<a href='/faculty/dashboard' class='btn btn-outline-secondary mt-3 ms-2'>Back</a>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='d-flex justify-content-between align-items-center mb-4'>
+<h4>?? All Subjects</h4>
+<a href='/admin/add-subject' class='btn btn-dark'>? Add Subject</a>
+</div>
+<div class='table-responsive'>
+<table class='table table-bordered table-hover'>
+<thead class='table-dark'><tr><th>Name</th><th>Code</th><th>Department</th><th>Semester</th></tr></thead>
+<tbody>
+{% for s in subjects %}
+<tr><td>{{ s.to_dict().name }}</td><td>{{ s.to_dict().code }}</td><td>{{ s.to_dict().department }}</td><td>{{ s.to_dict().semester }}</td></tr>
+{% else %}
+<tr><td colspan='4' class='text-center text-muted'>No subjects added yet</td></tr>
+{% endfor %}
+</tbody></table></div>
+{% endblock %}
