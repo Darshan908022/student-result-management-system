@@ -7,16 +7,18 @@ pipeline {
                 echo 'Successfully pulled code from GitHub!'
             }
         }
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Building application...'
-                // Example: sh 'mvn clean package' or sh 'npm run build'
+                echo 'Installing project requirements...'
+                // If you have a requirements.txt, this installs it locally
+                bat 'pip install -r requirements.txt --user --upgrade'
             }
         }
-        stage('Test') {
+        stage('Lint / Sanity Check') {
             steps {
-                echo 'Running tests...'
-                // Example: sh 'mvn test' or sh 'npm test'
+                echo 'Checking syntax errors...'
+                // Compiles the script to check for syntax bugs without running it
+                bat 'python -m py_compile app.py'
             }
         }
     }
